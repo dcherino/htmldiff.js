@@ -121,10 +121,10 @@ description please see API documentation above.
 
 ## Development
 
-After cloning the repository run `npm i` or `npm install` to install the necessary 
-dependencies. A run of `npm run make` creates the JavaScript output file. 
-`npm run lint` checks the TypeScript sources with TSLint. `npm test` runs all the
-tests from the `test` directory. `npm run testsample` diffs the HTML sample files 
+After cloning the repository run `npm i` or `npm install` to install the necessary
+dependencies. A run of `npm run make` creates the JavaScript output file.
+`npm run lint` checks the TypeScript sources with ESLint. `npm test` runs all the
+tests from the `test` directory. `npm run testsample` diffs the HTML sample files
 from the directory `sample` and logs the result to the console.
 
 The command line interface of htmldiff is developed in TypeScript so you have to run
