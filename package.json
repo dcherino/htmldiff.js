@@ -60,7 +60,7 @@
     "scripts": {
         "test": "jest",
         "testsample": "node htmldiff-cli.js sample/before.html sample/after.html - -c myDiffClass -p myPrefix",
-        "lint": "eslint -c eslintrc.json --parser-options=project:./tsconfig.json --ext .ts ./",
+        "lint": "eslint --ext .ts .",
         "premake": "npm run lint",
         "make": "tsc -p tsconfig.json && node -e \"require('fs').unlinkSync('./htmldiff-cli.d.ts')\"",
         "pack-macos-aarch64": "pkg -t node18-macos-arm64       -C GZip --output ./bin/macos-aarch64/htmldiff-cli htmldiff-cli.js -c ./pkg.json",
