@@ -19,7 +19,7 @@ describe('findMatchingBlocks', function(){
         });
 
         it('should be a function', function(){
-            expect(cut).is.a('function');
+            expect(typeof cut).toBe('function');
         });
 
         describe('When the items exist in the search target', function(){
@@ -28,19 +28,19 @@ describe('findMatchingBlocks', function(){
             });
 
             it('should find "a" twice', function(){
-                expect(res['a'].length).to.equal(2);
+                expect(res['a'].length).toBe(2);
             });
 
             it('should find "a" at 0', function(){
-                expect(res['a'][0]).to.equal(0);
+                expect(res['a'][0]).toBe(0);
             });
 
             it('should find "a" at 3', function(){
-                expect(res['a'][1]).to.equal(3);
+                expect(res['a'][1]).toBe(3);
             });
 
             it('should find "has" at 2', function(){
-                expect(res['has'][0]).to.equal(2);
+                expect(res['has'][0]).toBe(2);
             });
         });
     });
@@ -65,12 +65,12 @@ describe('findMatchingBlocks', function(){
             });
 
             it('should match the match', function(){
-                expect(res).to.exist;
-                expect(res.startInBefore).equal(0);
-                expect(res.startInAfter).equal(0);
-                expect(res.length).equal(3);
-                expect(res.endInBefore).equal(2);
-                expect(res.endInAfter).equal(2);
+                expect(res).toBeDefined();
+                expect(res.startInBefore).toBe(0);
+                expect(res.startInAfter).toBe(0);
+                expect(res.length).toBe(3);
+                expect(res.endInBefore).toBe(2);
+                expect(res.endInAfter).toBe(2);
             });
 
             describe('When the match is surrounded', function(){
@@ -81,11 +81,11 @@ describe('findMatchingBlocks', function(){
                 });
 
                 it('should match with appropriate indexing', function(){
-                    expect(res).to.exist;
-                    expect(res.startInBefore).to.equal(0);
-                    expect(res.startInAfter).to.equal(1);
-                    expect(res.endInBefore).to.equal(1);
-                    expect(res.endInAfter).to.equal(2);
+                    expect(res).toBeDefined();
+                    expect(res.startInBefore).toBe(0);
+                    expect(res.startInAfter).toBe(1);
+                    expect(res.endInBefore).toBe(1);
+                    expect(res.endInAfter).toBe(2);
                 });
             });
         });
@@ -98,7 +98,7 @@ describe('findMatchingBlocks', function(){
             });
 
             it('should return nothing', function(){
-                expect(res).to.not.exist;
+                expect(res).toBeUndefined();
             });
         });
     });
@@ -111,7 +111,7 @@ describe('findMatchingBlocks', function(){
         });
 
         it('should be a function', function(){
-            expect(cut).is.a('function');
+            expect(typeof cut).toBe('function');
         });
 
         describe('When called with a single match', function(){
@@ -124,7 +124,7 @@ describe('findMatchingBlocks', function(){
             });
 
             it('should return a match', function(){
-                expect(res.length).to.equal(1);
+                expect(res.length).toBe(1);
             });
         });
 
@@ -137,31 +137,31 @@ describe('findMatchingBlocks', function(){
             });
 
             it('should return 3 matches', function(){
-                expect(res.length).to.equal(3);
+                expect(res.length).toBe(3);
             });
 
             it('should match "the"', function(){
-                expect(res[0].startInBefore).eql(0);
-                expect(res[0].startInAfter).eql(0);
-                expect(res[0].endInBefore).eql(0);
-                expect(res[0].endInAfter).eql(0);
-                expect(res[0].length).eql(1);
+                expect(res[0].startInBefore).toBe(0);
+                expect(res[0].startInAfter).toBe(0);
+                expect(res[0].endInBefore).toBe(0);
+                expect(res[0].endInAfter).toBe(0);
+                expect(res[0].length).toBe(1);
             });
 
             it('should match "dog bit a"', function(){
-                expect(res[1].startInBefore).eql(1);
-                expect(res[1].startInAfter).eql(5);
-                expect(res[1].endInBefore).eql(7);
-                expect(res[1].endInAfter).eql(11);
-                expect(res[1].length).eql(7);
+                expect(res[1].startInBefore).toBe(1);
+                expect(res[1].startInAfter).toBe(5);
+                expect(res[1].endInBefore).toBe(7);
+                expect(res[1].endInAfter).toBe(11);
+                expect(res[1].length).toBe(7);
             });
 
             it('should match "man"', function(){
-                expect(res[2].startInBefore).eql(8);
-                expect(res[2].startInAfter).eql(14);
-                expect(res[2].endInBefore).eql(8);
-                expect(res[2].endInAfter).eql(14);
-                expect(res[2].length).eql(1);
+                expect(res[2].startInBefore).toBe(8);
+                expect(res[2].startInAfter).toBe(14);
+                expect(res[2].endInBefore).toBe(8);
+                expect(res[2].endInAfter).toBe(14);
+                expect(res[2].length).toBe(1);
             });
         });
     });

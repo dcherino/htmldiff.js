@@ -28,7 +28,7 @@ describe('renderOperations', function(){
         });
 
         it('should output the text', function(){
-            expect(res).equal('this is a test');
+            expect(res).toBe('this is a test');
         });
     });
 
@@ -40,7 +40,7 @@ describe('renderOperations', function(){
         });
 
         it('should wrap in an <ins>', function(){
-            expect(res).equal('this is<ins data-operation-index="1"> a test</ins>');
+            expect(res).toBe('this is<ins data-operation-index="1"> a test</ins>');
         });
     });
 
@@ -53,7 +53,7 @@ describe('renderOperations', function(){
         });
 
         it('should wrap in a <del>', function(){
-            expect(res).to.equal('this is a test<del data-operation-index="1"> of stuff</del>');
+            expect(res).toBe('this is a test<del data-operation-index="1"> of stuff</del>');
         });
     });
 
@@ -65,7 +65,7 @@ describe('renderOperations', function(){
         });
 
         it('should wrap in both <ins> and <del>', function(){
-            expect(res).to.equal('this is a <del data-operation-index="1">break</del>' +
+            expect(res).toBe('this is a <del data-operation-index="1">break</del>' +
                     '<ins data-operation-index="1">test</ins>');
         });
     });
@@ -80,7 +80,7 @@ describe('renderOperations', function(){
         });
 
         it('should identify contained inserted tags', function(){
-            expect(res).to.equal('<p>a<ins data-operation-index="1"> b</ins></p>' +
+            expect(res).toBe('<p>a<ins data-operation-index="1"> b</ins></p>' +
                     '<p data-diff-node="ins" data-operation-index="3">' +
                     '<ins data-operation-index="3">c</ins></p>');
         });
@@ -88,7 +88,7 @@ describe('renderOperations', function(){
         it('should identify contained deleted tags', function(){
             res = cut(after, before);
 
-            expect(res).to.equal('<p>a<del data-operation-index="1"> b</del></p>' +
+            expect(res).toBe('<p>a<del data-operation-index="1"> b</del></p>' +
                     '<p data-diff-node="del" data-operation-index="3">' +
                     '<del data-operation-index="3">c</del></p>');
         });
@@ -98,7 +98,7 @@ describe('renderOperations', function(){
             var after = tokenize(['test!', '</b>', 'non-bold', '<b>', 'bold']);
             res = cut(before, after);
 
-            expect(res).to.equal('<del data-operation-index="0">test</del>' +
+            expect(res).toBe('<del data-operation-index="0">test</del>' +
                     '<ins data-operation-index="0">test!</ins></b>non-bold<b>' +
                     '<ins data-operation-index="2">bold</ins>');
         });
@@ -111,7 +111,7 @@ describe('renderOperations', function(){
             });
 
             it('should keep the change inside the <p>', function(){
-                expect(res).to.equal('<p><del data-operation-index="1">this</del>' +
+                expect(res).toBe('<p><del data-operation-index="1">this</del>' +
                         '<ins data-operation-index="1">I</ins> is awesome</p>');
             });
         });
@@ -124,7 +124,7 @@ describe('renderOperations', function(){
 
             res = cut(before, after);
 
-            expect(res).to.equal('text');
+            expect(res).toBe('text');
         });
     });
 
@@ -136,7 +136,7 @@ describe('renderOperations', function(){
 
             res = cut(before, after);
 
-            expect(res).to.equal('<p style="margin: 2px;" class="after">this is awesome</p>');
+            expect(res).toBe('<p style="margin: 2px;" class="after">this is awesome</p>');
         });
 
         it('should show changes within tags with different attributes', function(){
@@ -146,7 +146,7 @@ describe('renderOperations', function(){
 
             res = cut(before, after);
 
-            expect(res).to.equal('<p style="margin: 2px;" class="after">' +
+            expect(res).toBe('<p style="margin: 2px;" class="after">' +
                     '<del data-operation-index="1">this</del><ins data-operation-index="1">' +
                     'that</ins> is awesome</p>');
         });
@@ -159,7 +159,7 @@ describe('renderOperations', function(){
 
             res = cut(before, after);
 
-            expect(res).to.equal('<del data-operation-index="0">old</del>' +
+            expect(res).toBe('<del data-operation-index="0">old</del>' +
                     '<ins data-operation-index="0">new<br/></ins> text');
         });
 
@@ -169,7 +169,7 @@ describe('renderOperations', function(){
 
             res = cut(before, after);
 
-            expect(res).to.equal(
+            expect(res).toBe(
                     '<del data-operation-index="0">old<iframe src="source.html"></iframe></del>' +
                     '<ins data-operation-index="0">new</ins> text');
         });

@@ -14,7 +14,7 @@ describe('htmlToTokens', function(){
     });
 
     it('should be a function', function(){
-        expect(cut).is.a('function');
+        expect(typeof cut).toBe('function');
     });
 
     describe('when called with text', function(){
@@ -23,7 +23,7 @@ describe('htmlToTokens', function(){
         });
 
         it('should return 4', function(){
-            expect(res.length).to.equal(7);
+            expect(res.length).toBe(7);
         });
     });
 
@@ -33,36 +33,36 @@ describe('htmlToTokens', function(){
         });
 
         it('should return 11', function(){
-            expect(res.length).to.equal(11);
+            expect(res.length).toBe(11);
         });
 
         it('should remove any html comments', function(){
             res = cut('<p> this is <!-- a comment! --> </p>');
-            expect(res.length).to.equal(8);
+            expect(res.length).toBe(8);
         });
     });
 
     it('should identify contiguous whitespace as a single token', function(){
-        expect(cut('a   b')).to.eql(tokenize(['a', '   ', 'b']));
+        expect(cut('a   b')).toEqual(tokenize(['a', '   ', 'b']));
     });
 
     it('should identify a single space as a single token', function(){
-        expect(cut(' a b ')).to.eql(tokenize([' ', 'a', ' ', 'b', ' ']));
+        expect(cut(' a b ')).toEqual(tokenize([' ', 'a', ' ', 'b', ' ']));
     });
 
     it('should identify self closing tags as tokens', function(){
-        expect(cut('<p>hello</br>goodbye</p>')).eql(
+        expect(cut('<p>hello</br>goodbye</p>')).toEqual(
                 tokenize(['<p>', 'hello', '</br>', 'goodbye', '</p>']));
     });
 
     describe('when encountering atomic tags', function(){
         it('should identify an image tag as a single token', function(){
-            expect(cut('<p><img src="1.jpg"><img src="2.jpg"></p>')).eql(
+            expect(cut('<p><img src="1.jpg"><img src="2.jpg"></p>')).toEqual(
                     tokenize(['<p>', '<img src="1.jpg">', '<img src="2.jpg">', '</p>']));
         });
 
         it('should identify an iframe tag as a single token', function(){
-            expect(cut('<p><iframe src="sample.html"></iframe></p>')).eql(
+            expect(cut('<p><iframe src="sample.html"></iframe></p>')).toEqual(
                     tokenize(['<p>', '<iframe src="sample.html"></iframe>', '</p>']));
         });
 
@@ -70,7 +70,7 @@ describe('htmlToTokens', function(){
             var cutResult = cut('<p><object><param name="1" /><param name="2" /></object></p>');
             var tokenizeResult = tokenize(
                     ['<p>', '<object><param name="1" /><param name="2" /></object>','</p>']);
-            expect(cutResult).eql(tokenizeResult);
+            expect(cutResult).toEqual(tokenizeResult);
         });
 
         it('should identify a math tag as a single token', function(){
@@ -86,7 +86,7 @@ describe('htmlToTokens', function(){
                 '<msup><mi>r</mi><mn>2</mn></msup></math>',
                 '</p>'
             ]);
-            expect(cutResult).eql(tokenizeResult);
+            expect(cutResult).toEqual(tokenizeResult);
         });
 
         it('should identify an svg tag as a single token', function(){
@@ -100,11 +100,11 @@ describe('htmlToTokens', function(){
                 '</svg>',
                 '</p>'
             ]);
-            expect(cutResult).eql(tokenizeResult);
+            expect(cutResult).toEqual(tokenizeResult);
         });
 
         it('should identify a script tag as a single token', function(){
-            expect(cut('<p><script>console.log("hi");</script></p>')).eql(
+            expect(cut('<p><script>console.log("hi");</script></p>')).toEqual(
                     tokenize(['<p>', '<script>console.log("hi");</script>', '</p>']));
         });
     });
