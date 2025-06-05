@@ -8,7 +8,7 @@ describe('calculateOperations', function(){
     });
 
     it('should be a function', function(){
-        expect(cut).is.a('function');
+        expect(typeof cut).toBe('function');
     });
 
     describe('Actions', function(){
@@ -21,11 +21,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should result in 3 operations', function(){
-                    expect(res.length).to.equal(3);
+                    expect(res.length).toBe(3);
                 });
 
                 it('should replace "on"', function(){
-                    expect(res[1]).eql({
+                    expect(res[1]).toEqual({
                         action          : 'replace',
                         startInBefore   : 2,
                         endInBefore     : 2,
@@ -43,11 +43,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should result in 3 operations', function(){
-                    expect(res.length).to.equal(3);
+                    expect(res.length).toBe(3);
                 });
 
                 it('should show an insert for "on"', function(){
-                    expect(res[1]).eql({
+                    expect(res[1]).toEqual({
                         action          : 'insert',
                         startInBefore   : 2,
                         endInBefore     : null,
@@ -64,11 +64,11 @@ describe('calculateOperations', function(){
                     });
 
                     it('should still have 3 operations', function(){
-                        expect(res.length).to.equal(3);
+                        expect(res.length).toBe(3);
                     });
 
                     it('should show a big insert', function(){
-                        expect(res[1]).eql({
+                        expect(res[1]).toEqual({
                             action          : 'insert',
                             startInBefore   : 2,
                             endInBefore     : null,
@@ -87,11 +87,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should return 3 operations', function(){
-                    expect(res.length).to.equal(3);
+                    expect(res.length).toBe(3);
                 });
 
                 it('should show the delete in the middle', function(){
-                    expect(res[1]).eql({
+                    expect(res[1]).toEqual({
                         action          : 'delete',
                         startInBefore   : 4,
                         endInBefore     : 9,
@@ -109,8 +109,8 @@ describe('calculateOperations', function(){
                 });
 
                 it('should return a single op', function(){
-                    expect(res.length).to.equal(1);
-                    expect(res[0]).eql({
+                    expect(res.length).toBe(1);
+                    expect(res[0]).toEqual({
                         action          : 'equal',
                         startInBefore   : 0,
                         endInBefore     : 10,
@@ -130,11 +130,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should return 2 operations', function(){
-                    expect(res.length).to.equal(2);
+                    expect(res.length).toBe(2);
                 });
 
                 it('should have a replace at the beginning', function(){
-                    expect(res[0]).eql({
+                    expect(res[0]).toEqual({
                         action          : 'replace',
                         startInBefore   : 0,
                         endInBefore     : 4,
@@ -152,11 +152,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should return 2 operations', function(){
-                    expect(res.length).to.equal(2);
+                    expect(res.length).toBe(2);
                 });
 
                 it('should have an insert at the beginning', function(){
-                    expect(res[0]).eql({
+                    expect(res[0]).toEqual({
                         action          : 'insert',
                         startInBefore   : 0,
                         endInBefore     : null,
@@ -174,11 +174,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should return 2 operations', function(){
-                    expect(res.length).to.equal(2);
+                    expect(res.length).toBe(2);
                 });
 
                 it('should have a delete at the beginning', function(){
-                    expect(res[0]).eql({
+                    expect(res[0]).toEqual({
                         action          : 'delete',
                         startInBefore   : 0,
                         endInBefore     : 1,
@@ -198,11 +198,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should return 2 operations', function(){
-                    expect(res.length).to.equal(2);
+                    expect(res.length).toBe(2);
                 });
 
                 it('should have a replace at the end', function(){
-                    expect(res[1]).eql({
+                    expect(res[1]).toEqual({
                         action          : 'replace',
                         startInBefore   : 6,
                         endInBefore     : 8,
@@ -220,11 +220,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should return 2 operations', function(){
-                    expect(res.length).to.equal(2);
+                    expect(res.length).toBe(2);
                 });
 
                 it('should have an Insert at the end', function(){
-                    expect(res[1]).eql({
+                    expect(res[1]).toEqual({
                         action          : 'insert',
                         startInBefore   : 7,
                         endInBefore     : null,
@@ -242,11 +242,11 @@ describe('calculateOperations', function(){
                 });
 
                 it('should have 2 operations', function(){
-                    expect(res.length).to.equal(2);
+                    expect(res.length).toBe(2);
                 });
 
                 it('should have a delete at the end', function(){
-                    expect(res[1]).eql({
+                    expect(res[1]).toEqual({
                         action          : 'delete',
                         startInBefore   : 7,
                         endInBefore     : 10,
@@ -267,11 +267,11 @@ describe('calculateOperations', function(){
             });
 
             it('should return 3 actions', function(){
-                expect(res.length).to.equal(1);
+                expect(res.length).toBe(1);
             });
 
             it('should have a replace first', function(){
-                expect(res[0].action).to.equal('replace');
+                expect(res[0].action).toBe('replace');
             });
         });
     });

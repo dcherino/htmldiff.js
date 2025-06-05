@@ -51,15 +51,14 @@
         "@types/node": "18.7.11",
         "@typescript-eslint/eslint-plugin": "5.34.0",
         "@typescript-eslint/parser": "5.34.0",
-        "chai": "*",
         "eslint": "8.22.0",
         "eslint-plugin-jsdoc": "39.3.6",
         "pkg": "5.8.0",
         "typescript": "4.7.4",
-        "mocha": "*"
+        "jest": "^29.0.0"
     },
     "scripts": {
-        "test": "mocha -R min",
+        "test": "jest",
         "testsample": "node htmldiff-cli.js sample/before.html sample/after.html - -c myDiffClass -p myPrefix",
         "lint": "eslint -c eslintrc.json --parser-options=project:./tsconfig.json --ext .ts ./",
         "premake": "npm run lint",

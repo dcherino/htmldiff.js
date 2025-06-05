@@ -6,6 +6,6 @@ describe('The module', function(){
     });
 
     it('should return a function', function(){
-        expect(cut).is.a('function');
+        expect(typeof cut).toBe('function');
     });
 });

@@ -13,7 +13,7 @@ describe('Diff', function(){
       });
   
       it('should return the text', function(){
-        expect(res).equal('input text');
+        expect(res).toBe('input text');
       });
     }); // describe('When both inputs are the same')
   
@@ -23,27 +23,27 @@ describe('Diff', function(){
       });
   
       it('should mark the new letter', function(){
-        expect(res).to.equal('input<ins data-operation-index="1"> 2</ins>');
+        expect(res).toBe('input<ins data-operation-index="1"> 2</ins>');
       });
     }); // describe('When a letter is added')
   
     describe('Whitespace differences', function(){
       it('should collapse adjacent whitespace', function(){
-        expect(cut('Much \n\t    spaces', 'Much spaces')).to.equal('Much spaces');
+        expect(cut('Much \n\t    spaces', 'Much spaces')).toBe('Much spaces');
       });
   
       it('should consider non-breaking spaces as equal', function(){
-        expect(cut('Hello&nbsp;world', 'Hello&#160;world')).to.equal('Hello&#160;world');
+        expect(cut('Hello&nbsp;world', 'Hello&#160;world')).toBe('Hello&#160;world');
       });
   
       it('should consider non-breaking spaces and non-adjacent regular spaces as equal', function(){
-        expect(cut('Hello&nbsp;world', 'Hello world')).to.equal('Hello world');
+        expect(cut('Hello&nbsp;world', 'Hello world')).toBe('Hello world');
       });
     }); // describe('Whitespace differences')
   
     describe('When a class name is specified', function(){
       it('should include the class in the wrapper tags', function(){
-        expect(cut('input', 'input 2', 'diff-result')).to.equal(
+        expect(cut('input', 'input 2', 'diff-result')).toBe(
           'input<ins data-operation-index="1" class="diff-result"> 2</ins>');
       });
     }); // describe('When a class name is specified')
@@ -53,8 +53,8 @@ describe('Diff', function(){
         var before = html_to_tokens('<img src="a.jpg">');
         var after = html_to_tokens('<img src="b.jpg">');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'replace',
           startInBefore: 0,
           endInBefore: 0,
@@ -67,8 +67,8 @@ describe('Diff', function(){
         var before = html_to_tokens('<img src="a.jpg">');
         var after = html_to_tokens('<img src="a.jpg" alt="hey!">');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'equal',
           startInBefore: 0,
           endInBefore: 0,
@@ -83,8 +83,8 @@ describe('Diff', function(){
         var before = html_to_tokens('<object data="a.jpg"></object>');
         var after = html_to_tokens('<object data="b.jpg"></object>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'replace',
           startInBefore: 0,
           endInBefore: 0,
@@ -97,8 +97,8 @@ describe('Diff', function(){
         var before = html_to_tokens('<object data="a.jpg"><param>yo!</param></object>');
         var after = html_to_tokens('<object data="a.jpg"></object>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'equal',
           startInBefore: 0,
           endInBefore: 0,
@@ -115,8 +115,8 @@ describe('Diff', function(){
         var after = html_to_tokens('<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt>' +
           '<msup><mn>b</mn><mn>5</mn></msup></msqrt></math>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'replace',
           startInBefore: 0,
           endInBefore: 0,
@@ -131,8 +131,8 @@ describe('Diff', function(){
         var after = html_to_tokens('<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt>' +
           '<msup><mi>b</mi><mn>2</mn></msup></msqrt></math>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'equal',
           startInBefore: 0,
           endInBefore: 0,
@@ -149,8 +149,8 @@ describe('Diff', function(){
         var after = html_to_tokens('<video data-uuid="0787866ab5494d88b4b1ee423453224b">' +
           '<source src="inkling-video:///big_buck_rabbit/mp4" type="video/webm" /></video>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'replace',
           startInBefore: 0,
           endInBefore: 0,
@@ -166,8 +166,8 @@ describe('Diff', function(){
         var after = html_to_tokens('<video data-uuid="0787866ab5494d88b4b1ee423453224b">' +
           '<source src="inkling-video:///big_buck_bunny/webm_high" type="video/webm" /></video>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'equal',
           startInBefore: 0,
           endInBefore: 0,
@@ -182,8 +182,8 @@ describe('Diff', function(){
         var before = html_to_tokens('<iframe src="a.jpg"></iframe>');
         var after = html_to_tokens('<iframe src="b.jpg"></iframe>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'replace',
           startInBefore: 0,
           endInBefore: 0,
@@ -196,8 +196,8 @@ describe('Diff', function(){
         var before = html_to_tokens('<iframe src="a.jpg"></iframe>');
         var after = html_to_tokens('<iframe src="a.jpg" class="foo"></iframe>');
         var ops = calculate_operations(before, after);
-        expect(ops.length).to.equal(1);
-        expect(ops[0]).to.eql({
+        expect(ops.length).toBe(1);
+        expect(ops[0]).toEqual({
           action: 'equal',
           startInBefore: 0,
           endInBefore: 0,
