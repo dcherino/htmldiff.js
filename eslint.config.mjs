@@ -2,15 +2,37 @@ import js from '@eslint/js';
 import parser from '@typescript-eslint/parser';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import jsdocPlugin from 'eslint-plugin-jsdoc';
+import globals from 'globals';
 
 export default [
   js.configs.recommended,
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+        before: 'writable',
+        after: 'writable'
+      }
+    },
+    rules: {
+      'no-useless-escape': 'off',
+      'no-control-regex': 'off',
+      'no-unused-vars': 'off',
+      'no-undef': 'off'
+    }
+  },
   {
     files: ['**/*.ts'],
     languageOptions: {
       parser,
       parserOptions: { project: './tsconfig.json' },
-      sourceType: 'module'
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        ...globals.jest
+      }
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
@@ -52,6 +74,6 @@ export default [
     }
   },
   {
-    ignores: ['*.js', '*.d.ts']
+    ignores: ['htmldiff-cli.js', '**/*.d.ts']
   }
 ];
