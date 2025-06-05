@@ -68,9 +68,9 @@
      * Regular expression to check atomic tags.
      * @see function diff.
      */
-    var atomicTagsRegExp;
     // Added head and style (for style tags inside the body)
     var defaultAtomicTagsRegExp = new RegExp('^<(iframe|object|math|svg|script|video|head|style|a)\b');
+    var atomicTagsRegExp = defaultAtomicTagsRegExp;
     
     /**
      * Checks if the current word is the beginning of an atomic tag. An atomic tag is one whose
@@ -171,6 +171,9 @@
      * @return {Array.<string>} The list of tokens.
      */
     function htmlToTokens(html){
+        if (!atomicTagsRegExp) {
+            atomicTagsRegExp = defaultAtomicTagsRegExp;
+        }
         var mode = 'char';
         var currentWord = '';
         var currentAtomicTag = '';
