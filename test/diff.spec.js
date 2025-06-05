@@ -47,163 +47,86 @@ describe('Diff', function(){
           'input<ins data-operation-index="1" class="diff-result"> 2</ins>');
       });
     }); // describe('When a class name is specified')
+
+    function expectSingleOperation(beforeHtml, afterHtml, expectedAction) {
+      var before = html_to_tokens(beforeHtml);
+      var after = html_to_tokens(afterHtml);
+      var ops = calculate_operations(before, after);
+      expect(ops).toEqual([
+        {
+          action: expectedAction,
+          startInBefore: 0,
+          endInBefore: 0,
+          startInAfter: 0,
+          endInAfter: 0,
+        },
+      ]);
+    }
   
     describe('Image Differences', function(){
       it('show two images as different if their src attributes are different', function() {
-        var before = html_to_tokens('<img src="a.jpg">');
-        var after = html_to_tokens('<img src="b.jpg">');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'replace',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation('<img src="a.jpg">', '<img src="b.jpg">', 'replace');
       });
-  
+
       it('should show two images are the same if their src attributes are the same', function() {
-        var before = html_to_tokens('<img src="a.jpg">');
-        var after = html_to_tokens('<img src="a.jpg" alt="hey!">');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'equal',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation('<img src="a.jpg">', '<img src="a.jpg" alt="hey!">', 'equal');
       });
     }); // describe('Image Differences')
     
     describe('Widget Differences', function(){
       it('show two widgets as different if their data attributes are different', function() {
-        var before = html_to_tokens('<object data="a.jpg"></object>');
-        var after = html_to_tokens('<object data="b.jpg"></object>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'replace',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation('<object data="a.jpg"></object>', '<object data="b.jpg"></object>', 'replace');
       });
-  
+
       it('should show two widgets are the same if their data attributes are the same', function() {
-        var before = html_to_tokens('<object data="a.jpg"><param>yo!</param></object>');
-        var after = html_to_tokens('<object data="a.jpg"></object>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'equal',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation('<object data="a.jpg"><param>yo!</param></object>', '<object data="a.jpg"></object>', 'equal');
       });
     }); // describe('Widget Differences')
   
-      describe('Math Differences', function(){
+    describe('Math Differences', function(){
       it('should show two math elements as different if their contents are different', function() {
-        var before = html_to_tokens('<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt>' +
-          '<msup><mi>b</mi><mn>2</mn></msup></msqrt></math>');
-        var after = html_to_tokens('<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt>' +
-          '<msup><mn>b</mn><mn>5</mn></msup></msqrt></math>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'replace',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation(
+          '<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt><msup><mi>b</mi><mn>2</mn></msup></msqrt></math>',
+          '<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt><msup><mi>b</mi><mn>5</mn></msup></msqrt></math>',
+          'replace'
+        );
       });
-  
+
       it('should show two math elements as the same if their contents are the same', function() {
-        var before = html_to_tokens('<math data-uuid="15568cd906504876548459e80e356878"><msqrt>' +
-          '<msup><mi>b</mi><mn>2</mn></msup></msqrt></math>');
-        var after = html_to_tokens('<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt>' +
-          '<msup><mi>b</mi><mn>2</mn></msup></msqrt></math>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'equal',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation(
+          '<math data-uuid="15568cd906504876548459e80e356878"><msqrt><msup><mi>b</mi><mn>2</mn></msup></msqrt></math>',
+          '<math data-uuid="55784cd906504787a8e459e80e3bb554"><msqrt><msup><mi>b</mi><mn>2</mn></msup></msqrt></math>',
+          'equal'
+        );
       });
     }); // describe('Math Differences')
   
     describe('Video Differences', function(){
       it('show two widgets as different if their data attributes are different', function() {
-        var before = html_to_tokens('<video data-uuid="0787866ab5494d88b4b1ee423453224b">' +
-          '<source src="inkling-video:///big_buck_bunny/webm_high" type="video/webm" /></video>');
-        var after = html_to_tokens('<video data-uuid="0787866ab5494d88b4b1ee423453224b">' +
-          '<source src="inkling-video:///big_buck_rabbit/mp4" type="video/webm" /></video>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'replace',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
-  
+        expectSingleOperation(
+          '<video data-uuid="0787866ab5494d88b4b1ee423453224b"><source src="inkling-video:///big_buck_bunny/webm_high" type="video/webm" /></video>',
+          '<video data-uuid="0787866ab5494d88b4b1ee423453224b"><source src="inkling-video:///big_buck_rabbit/mp4" type="video/webm" /></video>',
+          'replace'
+        );
+
       });
-  
+
       it('should show two widgets are the same if their data attributes are the same', function() {
-        var before = html_to_tokens('<video data-uuid="65656565655487787484545454548494">' +
-          '<source src="inkling-video:///big_buck_bunny/webm_high" type="video/webm" /></video>');
-        var after = html_to_tokens('<video data-uuid="0787866ab5494d88b4b1ee423453224b">' +
-          '<source src="inkling-video:///big_buck_bunny/webm_high" type="video/webm" /></video>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'equal',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation(
+          '<video data-uuid="65656565655487787484545454548494"><source src="inkling-video:///big_buck_bunny/webm_high" type="video/webm" /></video>',
+          '<video data-uuid="0787866ab5494d88b4b1ee423453224b"><source src="inkling-video:///big_buck_bunny/webm_high" type="video/webm" /></video>',
+          'equal'
+        );
       });
     }); // describe('Video Differences')
   
     describe('iframe Differences', function(){
       it('show two widgets as different if their data attributes are different', function() {
-        var before = html_to_tokens('<iframe src="a.jpg"></iframe>');
-        var after = html_to_tokens('<iframe src="b.jpg"></iframe>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'replace',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation('<iframe src="a.jpg"></iframe>', '<iframe src="b.jpg"></iframe>', 'replace');
       });
-  
+
       it('should show two widgets are the same if their data attributes are the same', function() {
-        var before = html_to_tokens('<iframe src="a.jpg"></iframe>');
-        var after = html_to_tokens('<iframe src="a.jpg" class="foo"></iframe>');
-        var ops = calculate_operations(before, after);
-        expect(ops.length).toBe(1);
-        expect(ops[0]).toEqual({
-          action: 'equal',
-          startInBefore: 0,
-          endInBefore: 0,
-          startInAfter: 0,
-          endInAfter: 0
-        });
+        expectSingleOperation('<iframe src="a.jpg"></iframe>', '<iframe src="a.jpg" class="foo"></iframe>', 'equal');
       });
     }); // describe('iframe Differences')
     
